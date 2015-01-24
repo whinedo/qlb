@@ -1,0 +1,55 @@
+
+#! /bin/sh
+
+
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/bin/lbdt
+NAME="lbdt"
+DESC="Load Balancer daemon"
+IFACE="eth0"
+HEARTBEAT=3
+
+test -f $DAEMON || exit 0
+
+set -e
+
+#. /usr/share/lbdt-common/common-functions
+#create_var_run_dir
+#
+PIDFILE=/var/run/lbdt/pid.txt
+
+case "$1" in
+  start)
+	echo -n "Starting $DESC: "
+	start-stop-daemon --start --quiet --pidfile $PIDFILE \
+		-v --exec $DAEMON $HEARTBEAT $IFACE
+	echo "$NAME."
+	;;
+  stop)
+	echo -n "Stopping $DESC: "
+	#start-stop-daemon --oknodo --stop --quiet --pidfile $PIDFILE \
+	start-stop-daemon --oknodo --stop --quiet  \
+		--exec $DAEMON
+
+	echo "$NAME."
+	;;
+
+  restart|force-reload)
+	echo -n "Restarting $DESC: "
+	#start-stop-daemon --stop --oknodo --quiet --pidfile $PIDFILE  \
+	start-stop-daemon --stop --oknodo --quiet \
+		--exec $DAEMON -- $ARGS
+	sleep 3
+	start-stop-daemon --start --quiet --pidfile $PIDFILE \
+		--exec $DAEMON $HEARTBEAT $IFACE
+	echo "$NAME."
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

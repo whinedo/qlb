@@ -1,0 +1,15 @@
+create_var_run_dir()
+{
+	if [ ! -d /var/run/lbdt/ ]; then
+		mkdir -p -m 0755 /var/run/lbdt/
+		chown root:root /var/run/lbdt/
+	fi
+}
+
+create_pid_file()
+{
+	if [ ! -f /var/run/lbdt/pid.txt ]; then
+		touch /var/run/lbdt/pid.txt
+		chown root:root /var/run/lbdt/pid.txt
+	fi
+}

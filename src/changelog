@@ -1,0 +1,6 @@
+1.0 => stable
+1.1 => solved problem with indexes in get_mark function. Never get last index
+1.2 => list of servers in each service is an circle array instead of linear
+array
+1.3 => load balancer algorithm API
+1.4 => load balancer problem in get_mark loop solved

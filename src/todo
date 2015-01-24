@@ -1,0 +1,5 @@
+1) Utilizar una sola cola: usar código de Baca para reconocer puerto
+2) Función de Balanceo programable
+	2.1) diseño de un api para acceso a las estrucutras privada
+	2.2) función de balanaceo como puntero a función
+3) Posibilidad de licencia GPL
